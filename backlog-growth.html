@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Backlog Growth Calculator — Buying vs Finishing Rate | BacklogBurn</title>
+<meta name="description" content="Compare how many games you buy with how many you finish. See whether your backlog grows or shrinks each month, its yearly change, and when it can reach zero.">
+<link rel="canonical" href="https://backlogburn.com/backlog-growth.html">
+<link rel="stylesheet" href="assets/style.css">
+</head><body><nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="backlog-deadline.html">Deadline</a>
+<a href="backlog-growth.html">Growth</a>
+<a href="steam-sale-backlog.html">Steam sale</a>
+</div></div></nav>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Backlog growth calculator</span>
+<h1>Are you buying games faster than you finish them?</h1>
+<p>Ignore hours for a moment and look at the flow of games in and out of your backlog. This calculator shows whether the pile is shrinking, stable or growing.</p>
+</div></section>
+<section style="padding-top:8px"><div class="wrap grid">
+<div class="card">
+<h2>Your monthly habits</h2>
+<div class="field"><label for="size">Current backlog size</label><input id="size" type="number" min="0" value="40"></div>
+<div class="row">
+<div class="field"><label for="finish">Games finished per month</label><input id="finish" type="number" min="0" step=".1" value="2"></div>
+<div class="field"><label for="buy">Games added per month</label><input id="buy" type="number" min="0" step=".1" value="1"></div>
+</div>
+<div class="field"><label for="drop">Games deliberately dropped/removed per month</label><input id="drop" type="number" min="0" step=".1" value=".2"><span class="help">Removing a game you no longer intend to play still reduces the backlog.</span></div>
+</div>
+<div class="card">
+<h2>Your backlog trajectory</h2>
+<div id="status" class="status"></div>
+<div class="results">
+<div class="metric"><small>Net change/month</small><strong id="monthly">—</strong></div>
+<div class="metric"><small>Net change/year</small><strong id="yearly">—</strong></div>
+<div class="metric"><small>Backlog after 1 year</small><strong id="one">—</strong></div>
+<div class="metric"><small>Backlog after 3 years</small><strong id="three">—</strong></div>
+<div class="metric wide"><small>Estimated time to zero</small><strong id="zero">—</strong></div>
+</div>
+</div></div></section>
+<section><div class="wrap article">
+<h2>Why the buying rate matters</h2>
+<p>You can finish games consistently and still never reduce the backlog if new purchases arrive faster than completed or deliberately abandoned games leave it. The simplest useful measure is backlog burn rate: games out minus games in.</p>
+<h2>Dropping games counts</h2>
+<p>A backlog should represent games you genuinely still intend to play. Removing a game you have decided is not worth your time is a legitimate way to reduce it rather than a failed completion.</p>
+</div></section>
+</main><footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+<script>
+const f=(n,d=1)=>Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+function calc(){
+ const size=Math.max(0,+document.querySelector('#size').value||0), fin=Math.max(0,+document.querySelector('#finish').value||0), buy=Math.max(0,+document.querySelector('#buy').value||0), drop=Math.max(0,+document.querySelector('#drop').value||0);
+ const out=fin+drop, burn=out-buy, delta=buy-out;
+ document.querySelector('#monthly').textContent=(delta>0?'+':'')+f(delta,1)+' games';
+ document.querySelector('#yearly').textContent=(delta*12>0?'+':'')+f(delta*12,1)+' games';
+ document.querySelector('#one').textContent=f(Math.max(0,size+delta*12),1);
+ document.querySelector('#three').textContent=f(Math.max(0,size+delta*36),1);
+ document.querySelector('#zero').textContent=burn>0?f(size/burn,1)+' months':'No clear date';
+ const s=document.querySelector('#status');
+ if(burn>0){s.className='status good';s.innerHTML=`<strong>Your backlog is shrinking by ${f(burn,1)} games/month.</strong><p>If the rates stay stable, it reaches zero in roughly <b>${f(size/burn,1)} months</b>.</p>`;}
+ else if(burn===0){s.className='status warn';s.innerHTML='<strong>Your backlog is stable.</strong><p>You add games at the same rate you remove them, so the total never falls.</p>';}
+ else {s.className='status bad';s.innerHTML=`<strong>Your backlog is growing by ${f(Math.abs(burn),1)} games/month.</strong><p>At this rate you add about <b>${f(Math.abs(burn)*12,1)} net games per year</b>.</p>`;}
+}
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));calc();
+</script></body></html>
