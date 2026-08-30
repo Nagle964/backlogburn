@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gaming Time Calculator — Weekly to Yearly Hours | BacklogBurn</title><meta name="description" content="Convert your weekly gaming time into monthly hours, yearly hours and full days of gaming.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="games-per-year.html">Games/year</a>
+<a href="cost-per-hour.html">Cost/hour</a>
+<a href="about.html">About</a>
+</div></div></nav>
+
+<main><section class="hero"><div class="wrap"><span class="eyebrow">Gaming hours calculator</span><h1>How much time do you spend gaming?</h1><p>Turn an ordinary week into monthly, yearly and long-term totals.</p></div></section>
+<section style="padding-top:8px"><div class="wrap grid"><div class="card"><div class="field"><label>Hours gaming per week</label><input id="h" type="number" value="10" min="0" step=".5"></div></div>
+<div class="card"><div class="results"><div class="metric"><small>Per month</small><strong id="mo">—</strong></div><div class="metric"><small>Per year</small><strong id="yr">—</strong></div><div class="metric"><small>Full days/year</small><strong id="days">—</strong></div><div class="metric"><small>Over 5 years</small><strong id="five">—</strong></div></div></div></div></section></main>
+<footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+
+<script>
+function c(){let h=+document.querySelector('#h').value||0;let y=h*52.1775;document.querySelector('#mo').textContent=(y/12).toFixed(1)+' h';document.querySelector('#yr').textContent=y.toFixed(0)+' h';document.querySelector('#days').textContent=(y/24).toFixed(1);document.querySelector('#five').textContent=(y*5/24).toFixed(0)+' days';}document.querySelector('#h').addEventListener('input',c);c();
+</script></body></html>
