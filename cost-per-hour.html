@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video Game Cost Per Hour Calculator | BacklogBurn</title><meta name="description" content="Calculate the cost per hour of a video game from the price you paid and the hours you played.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="games-per-year.html">Games/year</a>
+<a href="cost-per-hour.html">Cost/hour</a>
+<a href="about.html">About</a>
+</div></div></nav>
+
+<main><section class="hero"><div class="wrap"><span class="eyebrow">Game value calculator</span><h1>What did that game cost you per hour?</h1><p>Price is only one way to judge value. Divide what you paid by the time you actually played.</p></div></section>
+<section style="padding-top:8px"><div class="wrap grid"><div class="card">
+<div class="field"><label>Price paid</label><input id="p" type="number" value="59.99" min="0" step=".01"></div>
+<div class="field"><label>Hours played</label><input id="h" type="number" value="40" min=".1" step=".1"></div>
+<select id="cur"><option>£</option><option>$</option><option>€</option></select>
+</div><div class="card"><h2>Result</h2><div class="results"><div class="metric wide"><small>Cost per hour</small><strong id="cph">—</strong></div><div class="metric"><small>Cost per 10 hours</small><strong id="ten">—</strong></div><div class="metric"><small>Hours per £/$/€1</small><strong id="hpp">—</strong></div></div></div></div></section></main>
+<footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+
+<script>
+function c(){let p=+document.querySelector('#p').value||0,h=+document.querySelector('#h').value||1,s=document.querySelector('#cur').value,v=p/h;document.querySelector('#cph').textContent=s+v.toFixed(2);document.querySelector('#ten').textContent=s+(v*10).toFixed(2);document.querySelector('#hpp').textContent=(p? h/p:0).toFixed(2)+' h';}
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',c));c();
+</script></body></html>
