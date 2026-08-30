@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Add Sitemap URL after the real domain is connected.
