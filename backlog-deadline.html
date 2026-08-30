@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gaming Backlog Deadline Calculator — Hours Per Week Needed | BacklogBurn</title>
+<meta name="description" content="Set a date to clear your gaming backlog and calculate the hours per week you need, whether your current schedule is enough, and the finish date at your current pace.">
+<link rel="canonical" href="https://backlogburn.com/backlog-deadline.html">
+<link rel="stylesheet" href="assets/style.css">
+</head><body><nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="backlog-deadline.html">Deadline</a>
+<a href="backlog-growth.html">Growth</a>
+<a href="steam-sale-backlog.html">Steam sale</a>
+</div></div></nav>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Backlog deadline calculator</span>
+<h1>How much do you need to play to clear your backlog by a date?</h1>
+<p>Choose a backlog size and target date. BacklogBurn works backwards to show the weekly gaming time required and whether your current schedule is enough.</p>
+</div></section>
+<section style="padding-top:8px"><div class="wrap grid">
+<div class="card">
+<h2>Your target</h2>
+<div class="row">
+<div class="field"><label for="games">Games remaining</label><input id="games" type="number" min="1" value="25"></div>
+<div class="field"><label for="avg">Average hours per game</label><input id="avg" type="number" min=".1" step=".5" value="20"></div>
+</div>
+<div class="row">
+<div class="field"><label for="progress">Average progress already completed (%)</label><input id="progress" type="number" min="0" max="99" value="0"></div>
+<div class="field"><label for="current">Hours you can play per week</label><input id="current" type="number" min="0" step=".5" value="10"></div>
+</div>
+<div class="field"><label for="deadline">Target clear date</label><input id="deadline" type="date"></div>
+<p class="note">This treats the entered games as the backlog you want to finish. It does not assume you keep buying new games during the challenge.</p>
+</div>
+<div class="card">
+<h2>Your deadline plan</h2>
+<div id="status" class="status"></div>
+<div class="results">
+<div class="metric"><small>Hours remaining</small><strong id="hours">—</strong></div>
+<div class="metric"><small>Weeks available</small><strong id="weeks">—</strong></div>
+<div class="metric"><small>Hours/week required</small><strong id="required">—</strong></div>
+<div class="metric"><small>Your spare/shortfall</small><strong id="gap">—</strong></div>
+<div class="metric wide"><small>Finish date at your current pace</small><strong id="finish">—</strong></div>
+</div>
+</div>
+</div></section>
+<div class="wrap"><div class="adslot">Future display-ad placement</div></div>
+<section><div class="wrap article">
+<h2>What this calculator answers</h2>
+<p>A normal backlog calculator estimates how long the pile takes at your current pace. This one reverses the question: if you want the backlog gone by a birthday, holiday, new console launch or the end of the year, how many hours of backlog gaming do you actually need each week?</p>
+<h2>How the calculation works</h2>
+<p>Remaining hours are estimated from the number of games, average game length and average progress already completed. Those hours are divided by the number of weeks between today and your target date. The result is the weekly backlog time needed to meet the deadline.</p>
+</div></section>
+</main><footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+<script>
+const f=(n,d=1)=>Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+function calc(){
+ const games=Math.max(0,+document.querySelector('#games').value||0);
+ const avg=Math.max(.1,+document.querySelector('#avg').value||1);
+ const prog=Math.min(.99,Math.max(0,(+document.querySelector('#progress').value||0)/100));
+ const current=Math.max(0,+document.querySelector('#current').value||0);
+ const dEl=document.querySelector('#deadline');
+ if(!dEl.value){let d=new Date(); d.setMonth(d.getMonth()+6); dEl.value=d.toISOString().slice(0,10);}
+ const target=new Date(dEl.value+'T12:00:00');
+ const now=new Date();
+ const days=Math.max(1,(target-now)/86400000);
+ const weeks=days/7;
+ const hours=games*avg*(1-prog);
+ const req=hours/weeks;
+ const gap=current-req;
+ const finish=current>0?new Date(Date.now()+(hours/current)*7*86400000):null;
+ document.querySelector('#hours').textContent=f(hours,0)+' h';
+ document.querySelector('#weeks').textContent=f(weeks,1);
+ document.querySelector('#required').textContent=f(req,1)+' h/week';
+ document.querySelector('#gap').textContent=(gap>=0?'+':'')+f(gap,1)+' h/week';
+ document.querySelector('#finish').textContent=finish?finish.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'No finish date';
+ const s=document.querySelector('#status'); s.className='status '+(gap>=0?'good':'bad');
+ s.innerHTML=gap>=0?`<strong>Your schedule can hit the deadline.</strong><p>You have about <b>${f(gap,1)} spare hours/week</b> above the required pace.</p>`:`<strong>You are short of the target pace.</strong><p>You need about <b>${f(Math.abs(gap),1)} more hours/week</b>, a later deadline, or a smaller backlog.</p>`;
+}
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc)); calc();
+</script></body></html>
