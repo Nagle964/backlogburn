@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<!-- Replace example.com after buying the domain. -->
-<url><loc>https://example.com/</loc></url>
-<url><loc>https://example.com/games-per-year.html</loc></url>
-<url><loc>https://example.com/cost-per-hour.html</loc></url>
-<url><loc>https://example.com/gaming-time.html</loc></url>
-<url><loc>https://example.com/about.html</loc></url>
-<url><loc>https://example.com/methodology.html</loc></url>
+<url><loc>https://backlogburn.com/</loc></url>
+<url><loc>https://backlogburn.com/games-per-year.html</loc></url>
+<url><loc>https://backlogburn.com/cost-per-hour.html</loc></url>
+<url><loc>https://backlogburn.com/gaming-time.html</loc></url>
+<url><loc>https://backlogburn.com/about.html</loc></url>
+<url><loc>https://backlogburn.com/methodology.html</loc></url>
+<url><loc>https://backlogburn.com/privacy.html</loc></url>
+<url><loc>https://backlogburn.com/terms.html</loc></url>
 </urlset>
