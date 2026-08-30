@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Games Per Year Calculator | BacklogBurn</title><meta name="description" content="Estimate how many video games you can realistically finish per month and per year from your gaming time and average game length.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="games-per-year.html">Games/year</a>
+<a href="cost-per-hour.html">Cost/hour</a>
+<a href="about.html">About</a>
+</div></div></nav>
+
+<main><section class="hero"><div class="wrap"><span class="eyebrow">Gaming pace calculator</span><h1>How many games can you finish in a year?</h1><p>Convert the time you actually have for gaming into a realistic annual completion pace.</p></div></section>
+<section style="padding-top:8px"><div class="wrap grid"><div class="card">
+<div class="field"><label>Gaming hours per week</label><input id="h" type="number" value="10" min=".1" step=".5"></div>
+<div class="field"><label>Average game length (hours)</label><input id="l" type="number" value="18" min=".1" step=".5"></div>
+<div class="field"><label>Share of gaming time used to finish games (%)</label><input id="f" type="number" value="80" min="0" max="100"></div>
+</div><div class="card"><h2>Your pace</h2><div class="results"><div class="metric"><small>Games/month</small><strong id="m">—</strong></div><div class="metric"><small>Games/year</small><strong id="y">—</strong></div><div class="metric"><small>Hours/year</small><strong id="hy">—</strong></div><div class="metric"><small>Days of gaming/year</small><strong id="dy">—</strong></div></div></div></div></section>
+<section><div class="wrap article"><h2>Why this is useful</h2><p>A yearly completion target only makes sense if it fits the hours available. This tool starts with your real schedule rather than an arbitrary target and converts it into a sustainable number of finished games.</p></div></section></main>
+<footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+
+<script>
+function c(){let h=+document.querySelector('#h').value||0,l=+document.querySelector('#l').value||1,f=(+document.querySelector('#f').value||0)/100;let annual=h*52.1775*f,g=annual/l;document.querySelector('#m').textContent=(g/12).toFixed(2);document.querySelector('#y').textContent=g.toFixed(1);document.querySelector('#hy').textContent=annual.toFixed(0)+' h';document.querySelector('#dy').textContent=(annual/24).toFixed(1);}
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',c));c();
+</script></body></html>
