@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steam Sale Backlog Calculator — Cost, Savings & Hours Added | BacklogBurn</title>
+<meta name="description" content="Before buying a Steam sale haul, calculate the money spent, headline discount savings, estimated backlog hours added and how many weeks or months those games will take to finish.">
+<link rel="canonical" href="https://backlogburn.com/steam-sale-backlog.html">
+<link rel="stylesheet" href="assets/style.css">
+</head><body><nav><div class="wrap nav">
+<a class="brand" href="index.html">Backlog<span>Burn</span></a>
+<div class="links">
+<a href="index.html">Backlog calculator</a>
+<a href="backlog-deadline.html">Deadline</a>
+<a href="backlog-growth.html">Growth</a>
+<a href="steam-sale-backlog.html">Steam sale</a>
+</div></div></nav>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Steam sale backlog calculator</span>
+<h1>How much backlog is that Steam sale actually adding?</h1>
+<p>A 70% discount can save money and still add hundreds of hours to the pile. Estimate the cost, apparent saving and time commitment before you buy.</p>
+</div></section>
+<section style="padding-top:8px"><div class="wrap grid">
+<div class="card">
+<h2>Your planned haul</h2>
+<div class="row">
+<div class="field"><label for="games">Games you plan to buy</label><input id="games" type="number" min="0" value="6"></div>
+<div class="field"><label for="list">Average normal price (£/$/€)</label><input id="list" type="number" min="0" step=".01" value="30"></div>
+</div>
+<div class="row">
+<div class="field"><label for="discount">Average discount (%)</label><input id="discount" type="number" min="0" max="100" value="60"></div>
+<div class="field"><label for="hours">Average game length (hours)</label><input id="hours" type="number" min=".1" step=".5" value="20"></div>
+</div>
+<div class="row">
+<div class="field"><label for="weekly">Backlog gaming hours/week</label><input id="weekly" type="number" min=".1" step=".5" value="8"></div>
+<div class="field"><label for="symbol">Currency</label><select id="symbol"><option>£</option><option>$</option><option>€</option></select></div>
+</div>
+</div>
+<div class="card">
+<h2>What the sale adds</h2>
+<div id="status" class="status warn"></div>
+<div class="results">
+<div class="metric"><small>Total sale spend</small><strong id="spend">—</strong></div>
+<div class="metric"><small>Headline saving</small><strong id="saving">—</strong></div>
+<div class="metric"><small>Backlog hours added</small><strong id="added">—</strong></div>
+<div class="metric"><small>Average sale price/game</small><strong id="per">—</strong></div>
+<div class="metric wide"><small>Time needed at your backlog pace</small><strong id="time">—</strong></div>
+</div>
+</div></div></section>
+<section><div class="wrap article">
+<h2>Discount does not equal value</h2>
+<p>This calculator does not tell you whether a game is worth buying. It makes the trade-off visible: the cash price falls during a sale, but every game you genuinely plan to finish also adds time to your backlog.</p>
+<h2>Use it before a sale checkout</h2>
+<p>If your cart contains several games, use the average normal price, average discount and a realistic average game length. The result shows how many weeks of your normal backlog time the purchase represents.</p>
+</div></section>
+</main><footer><div class="wrap footer">
+<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
+<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div></footer>
+<script>
+const f=(n,d=1)=>Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+function calc(){
+ const games=Math.max(0,+document.querySelector('#games').value||0), list=Math.max(0,+document.querySelector('#list').value||0), disc=Math.min(100,Math.max(0,+document.querySelector('#discount').value||0))/100, hours=Math.max(.1,+document.querySelector('#hours').value||1), weekly=Math.max(.1,+document.querySelector('#weekly').value||1), sym=document.querySelector('#symbol').value;
+ const full=games*list, spend=full*(1-disc), save=full-spend, added=games*hours, weeks=added/weekly;
+ document.querySelector('#spend').textContent=sym+f(spend,2);
+ document.querySelector('#saving').textContent=sym+f(save,2);
+ document.querySelector('#added').textContent=f(added,0)+' h';
+ document.querySelector('#per').textContent=sym+f(games?spend/games:0,2);
+ document.querySelector('#time').textContent=weeks<8?f(weeks,1)+' weeks':f(weeks/4.345,1)+' months';
+ document.querySelector('#status').innerHTML=`<strong>${games} new games = about ${f(added,0)} backlog hours.</strong><p>At ${f(weekly,1)} backlog hours/week, this cart alone represents roughly <b>${f(weeks,1)} weeks</b> of play.</p>`;
+}
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));calc();
+</script></body></html>
