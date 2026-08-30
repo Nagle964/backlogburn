@@ -1,109 +1,240 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Game Backlog Calculator — How Long Will Your Backlog Take? | BacklogBurn</title>
-<meta name="description" content="Calculate how long your video game backlog will take, whether it is growing or shrinking, how many games you can finish per year, and how many new games you can buy without falling further behind.">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Backlog Calculator — Will You Ever Finish It? | BacklogBurn</title>
+<meta name="description" content="Calculate how long your video game backlog will take, whether it is growing or shrinking, how many games you can finish per year, and the buying rate your schedule can sustain.">
 <link rel="canonical" href="https://backlogburn.com/">
 <meta property="og:title" content="Game Backlog Calculator | BacklogBurn">
-<meta property="og:description" content="Find your backlog clear date — or discover why it will never clear at your current buying rate.">
+<meta property="og:description" content="Find your backlog clear date — or discover why your backlog is mathematically immortal.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://backlogburn.com/">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"BacklogBurn Game Backlog Calculator","url":"https://backlogburn.com/","applicationCategory":"GameApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 </script>
-</head><body>
-<nav><div class="wrap nav">
-<a class="brand" href="index.html">Backlog<span>Burn</span></a>
-<div class="links">
-<a href="index.html">Backlog calculator</a>
-<a href="backlog-deadline.html">Deadline</a>
-<a href="backlog-growth.html">Growth</a>
-<a href="steam-sale-backlog.html">Steam sale</a>
-</div></div></nav>
+</head>
+<body>
+<nav>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="BacklogBurn home">Backlog<span>Burn</span></a>
+    <div class="links">
+      <a href="#calculator">Calculator</a>
+      <a href="#more-tools">Tools</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
 
 <main>
-<section class="hero"><div class="wrap">
-<span class="eyebrow">Game backlog burn-rate calculator</span>
-<h1>Will you ever finish your game backlog?</h1>
-<p>Put numbers on the pile. See how many months or years it takes, whether new purchases are making it grow, and the buying rate your schedule can actually sustain.</p>
-</div></section>
+<section class="hero hero-v2">
+  <div class="wrap">
+    <span class="eyebrow">🔥 Free game backlog calculator</span>
+    <h1>Will you ever clear your game backlog?</h1>
+    <p>Tell us what is sitting in the pile and how you actually play. BacklogBurn works out whether you are beating the backlog — or feeding it.</p>
+    <div class="hero-pills" aria-label="Calculator features">
+      <span>🎮 Clear-date forecast</span>
+      <span>📉 Burn rate</span>
+      <span>🛒 Buying-rate check</span>
+    </div>
+  </div>
+</section>
 
-<section style="padding-top:8px"><div class="wrap grid">
-<div class="card" id="calculator">
-<h2>Your backlog</h2>
-<div class="row">
-<div class="field"><label for="games">Unfinished games</label><input id="games" type="number" min="0" value="40"><span class="help">Games you genuinely intend to finish.</span></div>
-<div class="field"><label for="avgHours">Average hours per game</label><input id="avgHours" type="number" min=".1" step=".5" value="18"><span class="help">Use your own average or a rough story-length estimate.</span></div>
-</div>
-<div class="row">
-<div class="field"><label for="weeklyHours">Gaming hours per week</label><input id="weeklyHours" type="number" min=".1" step=".5" value="10"></div>
-<div class="field"><label for="focus">Time spent on backlog (%)</label><input id="focus" type="number" min="0" max="100" value="80"><span class="help">Lower this if you replay games or spend time in multiplayer.</span></div>
-</div>
-<div class="field"><label for="progress">Average progress already completed (%)</label><input id="progress" type="number" min="0" max="99" value="0"></div>
-<h3>New games coming in</h3>
-<div class="row">
-<div class="field"><label for="newGames">New games added per month</label><input id="newGames" type="number" min="0" step=".1" value="1"></div>
-<div class="field"><label for="newAvg">Average hours per new game</label><input id="newAvg" type="number" min=".1" step=".5" value="18"></div>
-</div>
-<p class="note">The calculator updates automatically. It assumes your average playtime and buying habits remain roughly stable.</p>
-</div>
+<section class="calculator-section">
+  <div class="wrap dashboard-grid">
+    <div class="card setup-card" id="calculator">
+      <div class="card-kicker">YOUR BACKLOG</div>
+      <h2>Build your backlog profile</h2>
+      <p class="card-intro">Four quick answers are enough for a useful estimate. Fine-tune the maths under Advanced settings if you want.</p>
 
-<div class="card">
-<h2>Your backlog forecast</h2>
-<div id="status" class="status"></div>
-<div class="results">
-<div class="metric"><small>Hours currently remaining</small><strong id="rHours">—</strong></div>
-<div class="metric"><small>Effective backlog playtime</small><strong id="rEff">—</strong></div>
-<div class="metric"><small>Games cleared</small><strong id="rGamesMonth">—</strong></div>
-<div class="metric"><small>Games cleared per year</small><strong id="rGamesYear">—</strong></div>
-<div class="metric"><small>New hours added</small><strong id="rIncoming">—</strong></div>
-<div class="metric"><small>Maximum sustainable buying</small><strong id="rMaxBuy">—</strong></div>
-<div class="metric wide"><small>Clear time at current buying rate</small><strong id="rClear">—</strong><span class="help" id="rDate">—</span></div>
-</div>
-<div class="bar"><i id="paceBar"></i></div><div class="help" id="paceLabel"></div>
-<div class="sharebox"><button id="copyBtn" class="secondary">Copy result link</button></div>
-</div>
-</div></section>
+      <div class="field">
+        <label for="games">🎮 How many unfinished games do you have?</label>
+        <input id="games" type="number" min="0" step="1" value="40" inputmode="numeric">
+        <span class="help">Only count games you genuinely intend to finish.</span>
+      </div>
 
-<div class="wrap"><div class="adslot">Future display-ad placement — intentionally empty during launch/testing</div></div>
+      <div class="field">
+        <label for="avgHours">⏱️ Roughly how long is the average game?</label>
+        <div class="input-suffix">
+          <input id="avgHours" type="number" min=".1" step=".5" value="20" inputmode="decimal">
+          <span>hours</span>
+        </div>
+        <div class="preset-row" aria-label="Average game length presets">
+          <button class="preset" type="button" data-hours="10">Short · 10h</button>
+          <button class="preset active" type="button" data-hours="20">Medium · 20h</button>
+          <button class="preset" type="button" data-hours="40">Long · 40h</button>
+          <button class="preset" type="button" data-hours="70">RPG-heavy · 70h</button>
+        </div>
+      </div>
 
-<section><div class="wrap">
-<h2 class="section-title">What changes the answer?</h2>
-<p class="section-sub">The useful number is not simply “games owned ÷ games finished.” Backlogs change while you play them.</p>
-<div class="three">
-<div class="mini"><h3>No-buy challenge</h3><p>If you stop adding games entirely, your current backlog clears in <b id="sNoBuy">—</b>.</p></div>
-<div class="mini"><h3>Your current habits</h3><p>Keeping your present buying rate gives a clear time of <b id="sCurrent">—</b>.</p></div>
-<div class="mini"><h3>Five extra hours/week</h3><p>With five more gaming hours each week, the forecast becomes <b id="sPlus5">—</b>.</p></div>
-</div>
-</div></section>
+      <div class="field">
+        <label for="weeklyHours">🕹️ How many hours do you game each week?</label>
+        <div class="input-suffix">
+          <input id="weeklyHours" type="number" min=".1" step=".5" value="10" inputmode="decimal">
+          <span>hours/week</span>
+        </div>
+      </div>
 
-<section><div class="wrap">
-<h2 class="section-title">More gaming calculators</h2>
-<p class="section-sub">Different tools for different backlog questions, rather than copies of the same calculator.</p>
-<div class="toolnav">
-<a class="toolcard" href="backlog-deadline.html"><b>Backlog Deadline Calculator</b><span>Set a target date and calculate the hours per week you need.</span></a>
-<a class="toolcard" href="backlog-growth.html"><b>Backlog Growth Calculator</b><span>Compare your buying rate with your completion rate.</span></a>
-<a class="toolcard" href="steam-sale-backlog.html"><b>Steam Sale Backlog Calculator</b><span>See the money saved and the hours a sale haul adds.</span></a>
-<a class="toolcard" href="games-per-year.html"><b>Games Per Year Calculator</b><span>How many games can your actual schedule support?</span></a>
-<a class="toolcard" href="cost-per-hour.html"><b>Game Cost Per Hour Calculator</b><span>Work out the entertainment value of a purchase.</span></a>
-<a class="toolcard" href="gaming-time.html"><b>Gaming Time Calculator</b><span>Turn weekly gaming hours into monthly and annual totals.</span></a>
-</div>
-</div></section>
+      <div class="field">
+        <label for="newGames">🛒 How many new games do you add each month?</label>
+        <div class="input-suffix">
+          <input id="newGames" type="number" min="0" step=".1" value="1" inputmode="decimal">
+          <span>games/month</span>
+        </div>
+      </div>
 
-<section><div class="wrap faq">
-<h2 class="section-title">Game backlog calculator FAQ</h2>
-<details><summary>How do I calculate how long my gaming backlog will take?</summary><p>Estimate the remaining hours in your backlog, then divide that by the number of hours per month you actually spend progressing backlog games. BacklogBurn also subtracts the hours represented by new games you keep adding.</p></details>
-<details><summary>Why can the calculator say my backlog will never clear?</summary><p>If the estimated playtime of the games you add each month is greater than the backlog hours you clear each month, the backlog grows faster than you can finish it. In that case there is no mathematical clear date unless one of those habits changes.</p></details>
-<details><summary>What should I use for average game length?</summary><p>Use your own library if you know it. Otherwise choose a conservative estimate based on the kinds of games you actually finish. A library of short indie games behaves very differently from a backlog dominated by RPGs.</p></details>
-<details><summary>Does this connect to Steam?</summary><p>Not in the first version. This calculator intentionally works without an account or API connection. Steam-library analysis is a possible future tool.</p></details>
-</div></section>
+      <details class="advanced" id="advancedSettings">
+        <summary>
+          <span><b>Advanced settings</b><small>Optional accuracy tweaks</small></span>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="advanced-body">
+          <div class="field">
+            <div class="label-line">
+              <label for="focus">How much of your gaming time goes toward unfinished games?</label>
+              <output id="focusValue" for="focus">80%</output>
+            </div>
+            <input id="focus" class="range" type="range" min="0" max="100" step="5" value="80">
+            <div class="range-labels"><span>Mostly multiplayer/replays</span><span>Mostly backlog</span></div>
+          </div>
+
+          <div class="field">
+            <label for="progress">Average progress already completed</label>
+            <div class="input-suffix">
+              <input id="progress" type="number" min="0" max="99" step="1" value="0" inputmode="numeric">
+              <span>%</span>
+            </div>
+            <span class="help">Leave at 0 if most games are unstarted.</span>
+          </div>
+
+          <div class="field">
+            <label for="newAvg">Average length of the new games you buy</label>
+            <div class="input-suffix">
+              <input id="newAvg" type="number" min=".1" step=".5" value="20" inputmode="decimal">
+              <span>hours</span>
+            </div>
+            <span class="help">This follows your average game length until you change it manually.</span>
+          </div>
+        </div>
+      </details>
+
+      <button id="calculateBtn" class="primary calculate-btn" type="button"><span>🔥</span> Calculate my backlog</button>
+      <p id="dirtyNote" class="dirty-note" aria-live="polite"></p>
+    </div>
+
+    <div class="card forecast-card" id="forecast" aria-live="polite">
+      <div class="card-kicker">YOUR FORECAST</div>
+      <div id="status" class="result-hero">
+        <span id="statusIcon" class="result-icon">🔥</span>
+        <div>
+          <div id="statusEyebrow" class="result-eyebrow">BACKLOG STATUS</div>
+          <h2 id="statusTitle">Your backlog is shrinking.</h2>
+          <p id="statusCopy">You are finishing games faster than you add them.</p>
+        </div>
+      </div>
+
+      <div class="clear-date-card">
+        <span>Estimated clear date</span>
+        <strong id="rDate">—</strong>
+        <small id="rClear">—</small>
+      </div>
+
+      <div class="burn-meter">
+        <div class="burn-meter-head">
+          <div><span class="metric-label">BACKLOG BURN METER</span><strong id="burnLabel">Shrinking</strong></div>
+          <span id="burnDelta" class="burn-delta">—</span>
+        </div>
+        <div class="meter-track" aria-hidden="true">
+          <span class="meter-zone zone-bad"></span><span class="meter-zone zone-warn"></span><span class="meter-zone zone-good"></span>
+          <i id="burnMarker" class="meter-marker"></i>
+        </div>
+        <div class="meter-labels"><span>Growing</span><span>Balanced</span><span>Shrinking</span></div>
+      </div>
+
+      <div class="dashboard-stats">
+        <div class="stat-tile"><span>🎮 Games finished/year</span><strong id="rGamesYear">—</strong></div>
+        <div class="stat-tile"><span>🛒 Games added/year</span><strong id="rGamesAddedYear">—</strong></div>
+        <div class="stat-tile"><span>🔥 Net burn rate</span><strong id="rNetGames">—</strong></div>
+        <div class="stat-tile"><span>⏱️ Hours remaining</span><strong id="rHours">—</strong></div>
+      </div>
+
+      <div class="detail-strip">
+        <span><b id="rEff">—</b> effective backlog time</span>
+        <span><b id="rIncoming">—</b> added monthly</span>
+        <span><b id="rMaxBuy">—</b> sustainable buying</span>
+      </div>
+
+      <div class="sharebox">
+        <button id="copyBtn" class="secondary" type="button">🔗 Copy result link</button>
+        <button id="resetBtn" class="ghost" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scenario-section">
+  <div class="wrap">
+    <div class="section-heading-row">
+      <div><span class="section-kicker">WHAT IF?</span><h2 class="section-title">Three ways your future changes</h2></div>
+      <p class="section-sub">Small changes in buying or playtime can move the finish line by years.</p>
+    </div>
+    <div class="three scenario-grid">
+      <div class="mini scenario-card"><span class="scenario-icon">🚫</span><h3>No-buy challenge</h3><strong id="sNoBuy">—</strong><p>How long the current pile takes if you stop adding games.</p></div>
+      <div class="mini scenario-card featured"><span class="scenario-icon">🎯</span><h3>Your current habits</h3><strong id="sCurrent">—</strong><p>Your forecast if nothing about your gaming or buying changes.</p></div>
+      <div class="mini scenario-card"><span class="scenario-icon">⚡</span><h3>Five extra hours/week</h3><strong id="sPlus5">—</strong><p>What happens if you find five more gaming hours each week.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="wrap">
+    <span class="section-kicker">THE IDEA</span>
+    <h2 class="section-title">Your backlog has a burn rate</h2>
+    <p class="section-sub">Finishing games removes hours from the pile. Buying games adds hours back. BacklogBurn compares those two flows instead of pretending your library stays still.</p>
+    <div class="three">
+      <div class="mini"><span class="mini-num">01</span><h3>Count the pile</h3><p>Estimate how many games and hours you genuinely want to finish.</p></div>
+      <div class="mini"><span class="mini-num">02</span><h3>Measure your pace</h3><p>Turn your weekly gaming time into a realistic monthly completion rate.</p></div>
+      <div class="mini"><span class="mini-num">03</span><h3>Subtract new games</h3><p>Your finish line moves every time another game joins the backlog.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="more-tools">
+  <div class="wrap">
+    <span class="section-kicker">MORE TOOLS</span>
+    <h2 class="section-title">Attack the backlog from another angle</h2>
+    <p class="section-sub">Each tool answers a different gaming question rather than repeating the same calculator with a new title.</p>
+    <div class="toolnav">
+      <a class="toolcard" href="backlog-deadline.html"><span class="tool-icon">📅</span><b>Backlog Deadline Calculator</b><span>Set a date and calculate the hours per week you need.</span></a>
+      <a class="toolcard" href="backlog-growth.html"><span class="tool-icon">📈</span><b>Backlog Growth Calculator</b><span>Compare your buying rate with your completion rate.</span></a>
+      <a class="toolcard" href="steam-sale-backlog.html"><span class="tool-icon">🛒</span><b>Steam Sale Backlog Calculator</b><span>See the cash saved and the hours your sale haul adds.</span></a>
+      <a class="toolcard" href="games-per-year.html"><span class="tool-icon">🏁</span><b>Games Per Year Calculator</b><span>See how many games your actual schedule can support.</span></a>
+      <a class="toolcard" href="cost-per-hour.html"><span class="tool-icon">💸</span><b>Game Cost Per Hour</b><span>Work out the entertainment value of a purchase.</span></a>
+      <a class="toolcard" href="gaming-time.html"><span class="tool-icon">⌛</span><b>Gaming Time Calculator</b><span>Turn weekly gaming hours into monthly and annual totals.</span></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap faq">
+    <span class="section-kicker">FAQ</span>
+    <h2 class="section-title">Game backlog calculator questions</h2>
+    <details><summary>How do I calculate how long my gaming backlog will take?</summary><p>Estimate the remaining hours in your backlog, then divide that by the number of hours per month you actually spend progressing unfinished games. BacklogBurn also subtracts the hours represented by new games you keep adding.</p></details>
+    <details><summary>Why can the calculator say my backlog will never clear?</summary><p>If the estimated playtime of the games you add each month is greater than the backlog hours you clear each month, the pile grows faster than you can finish it. In that case there is no mathematical clear date unless one of those habits changes.</p></details>
+    <details><summary>What should I use for average game length?</summary><p>Use your own library if you know it. Otherwise pick the preset closest to the kinds of games you normally finish. A backlog of short indie games behaves very differently from one dominated by RPGs.</p></details>
+    <details><summary>Does this connect to Steam?</summary><p>Not in the current version. The calculator intentionally works without an account or API connection, so you can use it immediately and without sharing a gaming profile.</p></details>
+  </div>
+</section>
 </main>
 
-<footer><div class="wrap footer">
-<div>© 2026 BacklogBurn. Free gaming planning tools.</div>
-<div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
-</div></footer>
+<footer>
+  <div class="wrap footer">
+    <div>© 2026 BacklogBurn. Your backlog has a burn rate.</div>
+    <div><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+  </div>
+</footer>
 
 <script src="assets/app.js"></script>
-</body></html>
+</body>
+</html>
