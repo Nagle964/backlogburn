@@ -42,6 +42,21 @@ function buildResultData(){
  const marker=50+(balanceRatio*45);
  return{games,avgHours,weeklyHours,focus,progress,newGames,newAvg,remainingCurrentHours,effectiveWeek,effectiveMonth,incomingMonth,netClearHours,gamesPerMonth,gamesPerYear,gamesAddedYear,netGamesYear,sustainablePurchases,noBuyMonths,netMonths,growthHours,extraMonths,marker}
 }
+function compactState(data){
+ return[
+   data.games,
+   data.avgHours,
+   data.weeklyHours,
+   Math.round(data.focus*100),
+   Math.round(data.progress*100),
+   data.newGames,
+   data.newAvg
+ ].join("_")
+}
+function compactUrl(data){
+ const base=`${location.origin}${location.pathname}`;
+ return`${base}?r=${encodeURIComponent(compactState(data))}`
+}
 function render(data){
  const{remainingCurrentHours,effectiveWeek,incomingMonth,netClearHours,gamesPerYear,gamesAddedYear,netGamesYear,sustainablePurchases,noBuyMonths,netMonths,growthHours,extraMonths,marker}=data;
  setText("rHours",`${fmt(remainingCurrentHours,0)} h`);
@@ -62,13 +77,35 @@ function render(data){
  else if(netClearHours>0){status.classList.add("warn");icon.textContent="😅";eyebrow.textContent="BACKLOG STATUS · CLOSE CALL";title.textContent="You are winning — barely.";copy.textContent=`Your backlog is shrinking by only ${fmt(netClearHours,1)} hours a month. One ambitious sale could change the result.`;burnLabel.textContent="Barely shrinking";burnDelta.textContent=`${fmt(netClearHours,1)} net hours cleared/month`}
  else{status.classList.add("bad");icon.textContent="♾️";eyebrow.textContent="BACKLOG STATUS · IMMORTAL";title.textContent="Your backlog is immortal.";copy.textContent=`You add about ${fmt(growthHours,1)} more hours than you clear each month. At this pace there is no mathematical finish date. Maybe stop opening Steam sales.`;burnLabel.textContent="Growing";burnDelta.textContent=`${fmt(growthHours,1)} net hours added/month`}
  markerEl.style.left=`${marker}%`;
- const params=new URLSearchParams({games:data.games,avgHours:data.avgHours,weeklyHours:data.weeklyHours,focus:Math.round(data.focus*100),progress:Math.round(data.progress*100),newGames:data.newGames,newAvg:data.newAvg});
- history.replaceState(null,"",`${location.pathname}?${params.toString()}`);
+ history.replaceState(null,"",compactUrl(data));
  hasCalculated=true;clearDirty()
 }
 function calculate({scroll=false}={}){syncNewAverage();updateFocusOutput();updatePresetState();render(buildResultData());if(scroll&&window.innerWidth<901)document.getElementById("forecast")?.scrollIntoView({behavior:"smooth",block:"start"})}
-function loadParams(){const q=new URLSearchParams(location.search);["games","avgHours","weeklyHours","focus","progress","newGames","newAvg"].forEach(k=>{if(q.has(k)&&document.getElementById(k))document.getElementById(k).value=q.get(k)});if(q.has("newAvg"))newAverageIsSynced=false}
-function copyLink(){const success=()=>{const b=document.getElementById("copyBtn");if(!b)return;const old=b.textContent;b.textContent="✓ Link copied";setTimeout(()=>b.textContent=old,1400)};if(navigator.clipboard?.writeText)navigator.clipboard.writeText(location.href).then(success);else{const temp=document.createElement("textarea");temp.value=location.href;document.body.appendChild(temp);temp.select();document.execCommand("copy");temp.remove();success()}}
+function loadParams(){
+ const q=new URLSearchParams(location.search);
+ if(q.has("r")){
+   const parts=q.get("r").split("_");
+   const ids=["games","avgHours","weeklyHours","focus","progress","newGames","newAvg"];
+   if(parts.length===ids.length){
+     ids.forEach((id,i)=>{if(document.getElementById(id)&&parts[i]!==""&&!Number.isNaN(Number(parts[i])))document.getElementById(id).value=parts[i]});
+     newAverageIsSynced=false;
+     return
+   }
+ }
+ ["games","avgHours","weeklyHours","focus","progress","newGames","newAvg"].forEach(k=>{if(q.has(k)&&document.getElementById(k))document.getElementById(k).value=q.get(k)});
+ if(q.has("newAvg"))newAverageIsSynced=false
+}
+function copyLink(){
+ const data=buildResultData();
+ const url=compactUrl(data);
+ const status=data.netClearHours>data.effectiveMonth*.25?"🔥 Backlog shrinking":data.netClearHours>0?"😅 Backlog barely shrinking":"♾️ Backlog immortal";
+ const clearDate=Number.isFinite(data.netMonths)?dateFromMonths(data.netMonths):"Never";
+ const netLine=data.netGamesYear>=0?`${fmt(data.netGamesYear,1)} fewer games/year`: `${fmt(Math.abs(data.netGamesYear),1)} more games/year`;
+ const text=`${status}\nClear date: ${clearDate}\nNet backlog change: ${netLine}\n${url}`;
+ const success=()=>{const b=document.getElementById("copyBtn");if(!b)return;const old=b.textContent;b.textContent="✓ Result copied";setTimeout(()=>b.textContent=old,1400)};
+ if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(success);
+ else{const temp=document.createElement("textarea");temp.value=text;document.body.appendChild(temp);temp.select();document.execCommand("copy");temp.remove();success()}
+}
 function resetCalculator(){Object.entries(DEFAULTS).forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.value=value});newAverageIsSynced=true;document.getElementById("advancedSettings")?.removeAttribute("open");calculate()}
 document.addEventListener("DOMContentLoaded",()=>{
  loadParams();updateFocusOutput();updatePresetState();
