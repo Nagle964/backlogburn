@@ -1,8 +1,11 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gaming Time Calculator — Weekly to Yearly Hours | BacklogBurn</title><meta name="description" content="Convert your weekly gaming time into monthly hours, yearly hours and full days of gaming.">
+<title>Gaming Time Calculator — Weekly to Yearly Hours | BacklogBurn</title>
+<meta name="description" content="Use this free gaming time and playtime calculator to turn your weekly gaming hours into daily, monthly, yearly and long-term totals.">
 <link rel="canonical" href="https://backlogburn.com/gaming-time">
-<link rel="stylesheet" href="assets/style.css"></head><body>
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
 <nav><div class="wrap nav">
 <a class="brand" href="/">Backlog<span>Burn</span></a>
 <div class="links">
@@ -12,14 +15,122 @@
 <a href="/about">About</a>
 </div></div></nav>
 
-<main><section class="hero"><div class="wrap"><span class="eyebrow">Gaming hours calculator</span><h1>How much time do you spend gaming?</h1><p>Turn an ordinary week into monthly, yearly and long-term totals.</p></div></section>
-<section style="padding-top:8px"><div class="wrap grid"><div class="card"><div class="field"><label>Hours gaming per week</label><input id="h" type="number" value="10" min="0" step=".5"></div></div>
-<div class="card"><div class="results"><div class="metric"><small>Per month</small><strong id="mo">—</strong></div><div class="metric"><small>Per year</small><strong id="yr">—</strong></div><div class="metric"><small>Full days/year</small><strong id="days">—</strong></div><div class="metric"><small>Over 5 years</small><strong id="five">—</strong></div></div></div></div></section></main>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Gaming time calculator</span>
+<h1>Gaming Time Calculator: How Many Hours Do You Play?</h1>
+<p>Enter your typical weekly playtime to see how many hours you spend gaming per day, month and year — plus the full days that adds up to over time.</p>
+</div></section>
+
+<section style="padding-top:8px"><div class="wrap grid">
+<div class="card">
+<h2>Your weekly gaming time</h2>
+<p class="card-intro">Use your normal week rather than your biggest gaming week. You can change the number at any time.</p>
+<div class="field">
+<label for="h">Hours gaming per week</label>
+<input id="h" type="number" value="10" min="0" max="168" step=".5" inputmode="decimal">
+<div class="preset-row" aria-label="Weekly gaming time presets">
+<button class="preset" type="button" data-hours="5">5 h/week</button>
+<button class="preset active" type="button" data-hours="10">10 h/week</button>
+<button class="preset" type="button" data-hours="20">20 h/week</button>
+<button class="preset" type="button" data-hours="30">30 h/week</button>
+</div>
+</div>
+<p class="note">The calculator uses 52.1775 weeks per year, which reflects the average length of a calendar year.</p>
+</div>
+
+<div class="card">
+<h2>Your gaming time</h2>
+<div id="status" class="status good"></div>
+<div class="results">
+<div class="metric"><small>Average per day</small><strong id="day">—</strong></div>
+<div class="metric"><small>Per month</small><strong id="mo">—</strong></div>
+<div class="metric"><small>Per year</small><strong id="yr">—</strong></div>
+<div class="metric"><small>Full days/year</small><strong id="days">—</strong></div>
+<div class="metric"><small>Share of the week</small><strong id="share">—</strong></div>
+<div class="metric"><small>Over 5 years</small><strong id="five">—</strong></div>
+</div>
+</div>
+</div></section>
+
+<section><div class="wrap article">
+<h2>What this gaming time calculator shows</h2>
+<p>This calculator converts a weekly gaming schedule into easier-to-picture totals. If you play a fairly consistent number of hours each week, you can estimate your average daily playtime, monthly gaming hours, yearly gaming hours and the number of complete 24-hour days that time represents.</p>
+
+<h2>Example gaming-time totals</h2>
+<p>A few common weekly schedules show how quickly regular playtime adds up across a year.</p>
+<div class="three">
+<div class="mini"><span class="mini-num">5 H/WEEK</span><h3>About 261 hours/year</h3><p>Roughly 10.9 full days of gaming across a year.</p></div>
+<div class="mini"><span class="mini-num">10 H/WEEK</span><h3>About 522 hours/year</h3><p>Roughly 21.7 full days of gaming across a year.</p></div>
+<div class="mini"><span class="mini-num">20 H/WEEK</span><h3>About 1,044 hours/year</h3><p>Roughly 43.5 full days of gaming across a year.</p></div>
+</div>
+
+<h2>Turn playtime into a backlog plan</h2>
+<p>Your weekly gaming time is most useful when you connect it to the games you actually want to finish. Use the <a href="/">gaming backlog calculator</a> to estimate when your current backlog will be cleared, or the <a href="/games-per-year">games-per-year calculator</a> to estimate how many games your available time can realistically support.</p>
+<p>If you have a specific target date in mind, the <a href="/backlog-deadline">backlog deadline calculator</a> works backwards and calculates the weekly hours needed to reach it.</p>
+</div></section>
+
+<section><div class="wrap article faq">
+<h2>Gaming time calculator FAQ</h2>
+<details>
+<summary>How many hours is 10 hours of gaming per week in a year?</summary>
+<p>Ten hours per week is about 522 hours per year. That is approximately 21.7 complete 24-hour days.</p>
+</details>
+<details>
+<summary>How does the playtime calculator work?</summary>
+<p>It multiplies your weekly gaming hours by 52.1775 to estimate yearly playtime. Monthly and daily averages, full days and five-year totals are then calculated from that yearly figure.</p>
+</details>
+<details>
+<summary>Can I use this as a game time calculator for any platform?</summary>
+<p>Yes. The calculation is platform-independent, so your weekly hours can include Steam, PlayStation, Xbox, Nintendo, PC games, mobile games or a mixture of platforms.</p>
+</details>
+<details>
+<summary>How can I estimate my weekly gaming time?</summary>
+<p>Use a recent normal week if you know it. If your schedule varies, take your gaming hours across several typical weeks and divide by the number of weeks to get a more representative average.</p>
+</details>
+</div></section>
+</main>
+
 <footer><div class="wrap footer">
 <div>© 2026 BacklogBurn. Free gaming planning tools.</div>
 <div><a href="/about">About</a><a href="/methodology">Methodology</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
 </div></footer>
 
 <script>
-function c(){let h=+document.querySelector('#h').value||0;let y=h*52.1775;document.querySelector('#mo').textContent=(y/12).toFixed(1)+' h';document.querySelector('#yr').textContent=y.toFixed(0)+' h';document.querySelector('#days').textContent=(y/24).toFixed(1);document.querySelector('#five').textContent=(y*5/24).toFixed(0)+' days';}document.querySelector('#h').addEventListener('input',c);c();
-</script></body></html>
+const f=(n,d=1)=>Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+
+function calc(){
+  const input=document.querySelector('#h');
+  const h=Math.min(168,Math.max(0,+input.value||0));
+  const y=h*52.1775;
+  const perDay=y/365.2425;
+  const perMonth=y/12;
+  const fullDays=y/24;
+  const share=h/168*100;
+
+  document.querySelector('#day').textContent=f(perDay,1)+' h';
+  document.querySelector('#mo').textContent=f(perMonth,1)+' h';
+  document.querySelector('#yr').textContent=f(y,0)+' h';
+  document.querySelector('#days').textContent=f(fullDays,1)+' days';
+  document.querySelector('#share').textContent=f(share,1)+'%';
+  document.querySelector('#five').textContent=f(y*5/24,1)+' days';
+
+  const status=document.querySelector('#status');
+  status.className='status good';
+  status.innerHTML='<strong>'+f(h,1)+' hours/week = about '+f(y,0)+' hours/year.</strong><p>That is roughly <b>'+f(fullDays,1)+' full days</b> of gaming in a year.</p>';
+
+  document.querySelectorAll('.preset').forEach(btn=>{
+    btn.classList.toggle('active',Number(btn.dataset.hours)===h);
+  });
+}
+
+document.querySelector('#h').addEventListener('input',calc);
+document.querySelectorAll('.preset').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelector('#h').value=btn.dataset.hours;
+    calc();
+  });
+});
+calc();
+</script>
+</body></html>
