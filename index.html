@@ -175,6 +175,50 @@
   </div>
 </section>
 
+<section id="planner" class="planner-section">
+  <div class="wrap">
+    <span class="section-kicker">YOUR QUEUE</span>
+    <h2 class="section-title">Plan the games you will actually play</h2>
+    <p class="section-sub">The forecast above treats your backlog as an average. Here you list real games in the order you intend to play them and get a finish date for each one. Everything stays in your browser. There is no account and nothing is uploaded.</p>
+    <div class="dashboard-grid planner-grid">
+      <div class="card">
+        <h3>Add games</h3>
+        <form id="pl-form" autocomplete="off">
+          <div class="field"><label for="pl-name">Game</label><input id="pl-name" type="text" maxlength="80" placeholder="Baldur's Gate 3"></div>
+          <div class="row">
+            <div class="field"><label for="pl-hours">Estimated total hours</label><input id="pl-hours" type="number" min=".1" max="5000" step=".1" inputmode="decimal" placeholder="75"></div>
+            <div class="field"><label for="pl-played">Already played <small>(optional)</small></label><input id="pl-played" type="number" min="0" step=".1" inputmode="decimal" placeholder="0"></div>
+          </div>
+          <div class="preset-row" aria-label="Quick hour presets"><button class="pl-chip" type="button" data-hours="10">10h</button><button class="pl-chip" type="button" data-hours="20">20h</button><button class="pl-chip" type="button" data-hours="40">40h</button><button class="pl-chip" type="button" data-hours="70">70h</button></div>
+          <span class="help">Find lengths on HowLongToBeat or use your own guess. Use the main story length for the best estimate.</span>
+          <button class="primary pl-add" type="submit">Add to queue</button>
+        </form>
+        <details class="advanced pl-bulk">
+          <summary><span><b>Paste a list</b><small>One game per line: Name, hours</small></span><span class="chevron">&#8964;</span></summary>
+          <div class="advanced-body"><div class="field"><label for="pl-bulk" class="pl-sr">Games to add</label><textarea id="pl-bulk" rows="5" placeholder="Hades, 22&#10;Disco Elysium, 25&#10;Elden Ring 60h"></textarea><span class="help">Hours must follow a comma or dash, or end in "h", so titles like "Portal 2" are never misread.</span></div><button id="pl-bulk-btn" class="secondary" type="button">Add pasted games</button></div>
+        </details>
+        <div class="field"><label for="pl-weekly">Hours per week for this queue</label>
+          <div class="input-suffix"><input id="pl-weekly" type="number" min="0" max="168" step=".1" inputmode="decimal" value="10"><span>hours/week</span></div>
+          <button id="pl-use-calc" class="pl-link" type="button">Use the hours from the calculator above</button></div>
+        <p id="pl-msg" class="dirty-note pl-msg" role="status" aria-live="polite"></p>
+        <p id="pl-save-note" class="help"></p>
+      </div>
+      <div class="card" aria-live="polite">
+        <h3>Your queue</h3>
+        <p id="pl-empty" class="card-intro">Nothing here yet. Add a game, or paste a list, and your finish dates appear as you go. Order matters: the top game is played first.</p>
+        <ol id="pl-list" class="pl-list"></ol>
+        <div id="pl-results" hidden>
+          <div class="clear-date-card"><span>Whole queue cleared by</span><strong id="pl-total-date">&mdash;</strong><small><span id="pl-total-h"></span> left. <span id="pl-total-span"></span></small></div>
+          <h4 class="pl-h4">What if you played more?</h4>
+          <div class="pl-scroll"><table class="pl-table"><thead><tr><th scope="col">Weekly time</th><th scope="col">Queue cleared</th><th scope="col">Saved</th></tr></thead><tbody id="pl-whatif"></tbody></table></div>
+        </div>
+        <div class="sharebox"><button id="pl-copy" class="secondary" type="button">Copy plan as text</button><button id="pl-clear" class="ghost" type="button">Clear queue</button></div>
+        <p class="help">Dates assume you spend all of the weekly hours on this queue, in order, with no new purchases. For a forecast that includes new games you buy, use the calculator above.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="scenario-section">
   <div class="wrap">
     <div class="section-heading-row">
@@ -239,5 +283,6 @@
 </footer>
 
 <script src="assets/app.js"></script>
+<script src="assets/planner.js"></script>
 </body>
 </html>
